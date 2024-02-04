@@ -60,7 +60,8 @@ const startApp = async () => {
             break;
         }
       } catch (_error) {
-        console.log("Operation failed");
+        console.log(_error);
+        //console.log("Operation failed");
       }
     }
   }
