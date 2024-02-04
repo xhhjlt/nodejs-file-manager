@@ -1,5 +1,5 @@
 import { showInvalidInputError } from "../lib/showInvalidInputError.js";
-import path from "path";
+import { resolve } from "path";
 import { open } from "node:fs/promises";
 import { pipeline } from "node:stream";
 import { createBrotliCompress, createBrotliDecompress } from "zlib";
@@ -10,8 +10,8 @@ export const zipCommandHandler = async (input, {navState}) => {
     showInvalidInputError();
     return;
   }
-  const sourcePath = path.resolve(navState.currentDir, inputArr[1]);
-  const destinationPath = path.resolve(navState.currentDir, inputArr[2]);
+  const sourcePath = resolve(navState.currentDir, inputArr[1]);
+  const destinationPath = resolve(navState.currentDir, inputArr[2]);
   const source = await open(sourcePath);
   const destination = await open(destinationPath, 'w');
   const readStream = source.createReadStream();
