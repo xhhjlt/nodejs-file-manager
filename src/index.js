@@ -36,9 +36,11 @@ const startApp = async () => {
             await osCommandHandler(input);
             break;
           case "cd":
-          case "up":
           case "ls":
             await navCommandHandler(input, {navState});
+            break;
+          case "up":
+            await navCommandHandler("cd ..", {navState});
             break;
           case "cat":
           case "add":

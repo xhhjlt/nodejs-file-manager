@@ -1,8 +1,8 @@
+import { showInvalidInputError } from "../lib/showInvalidInputError.js";
 import path from "path";
 import { open } from "node:fs/promises";
 import { pipeline } from "node:stream";
-import { createGzip } from "node:zlib";
-import { createGunzip } from "node:zlib";
+import { createBrotliCompress, createBrotliDecompress } from "zlib";
 
 export const zipCommandHandler = async (input, {navState}) => {
   const inputArr = input.split(" ");
@@ -16,7 +16,7 @@ export const zipCommandHandler = async (input, {navState}) => {
   const destination = await open(destinationPath, 'w');
   const readStream = source.createReadStream();
   const writeStream = destination.createWriteStream();
-  const transformStream = inputArr[0] === "compress" ? createGzip() : createGunzip();
+  const transformStream = inputArr[0] === "compress" ? createBrotliCompress() : createBrotliDecompress();
   pipeline(readStream, transformStream, writeStream, (err) => {
     if (err) {
       console.error(err);

@@ -1,3 +1,4 @@
+import { showInvalidInputError } from "../lib/showInvalidInputError.js";
 import path from "path";
 import { readFile } from "fs/promises";
 import crypto from "crypto";
