@@ -1,6 +1,7 @@
 import { showInvalidInputError } from "../lib/showInvalidInputError.js";
 import { stat, readdir } from "node:fs/promises";
 import { resolve } from "path";
+import { homedir } from "os";
 
 export const navCommandHandler = async (input, {navState}) => {
   const inputArr = input.split(" ");
@@ -11,12 +12,14 @@ export const navCommandHandler = async (input, {navState}) => {
         showInvalidInputError();
         return;
       } 
-      const newDir = resolve(navState.currentDir, inputArr[1]);
+      const pathArg = inputArr[1].startsWith("~") ? inputArr[1].replace("~", homedir()) : inputArr[1];
+      console.log(pathArg);
+      const newDir = resolve(navState.currentDir, pathArg);
       const stats = await stat(newDir);
       if (!stats.isDirectory()) {
         throw new Error("Invalid path");
       }
-      navState.currentDir = resolve(navState.currentDir, inputArr[1]);
+      navState.currentDir = resolve(newDir);
       break;
     case "ls":
       if (inputArr.length !== 1) {
