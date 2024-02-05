@@ -13,7 +13,6 @@ export const navCommandHandler = async (input, {navState}) => {
         return;
       } 
       const pathArg = inputArr[1].startsWith("~") ? inputArr[1].replace("~", homedir()) : inputArr[1];
-      console.log(pathArg);
       const newDir = resolve(navState.currentDir, pathArg);
       const stats = await stat(newDir);
       if (!stats.isDirectory()) {
