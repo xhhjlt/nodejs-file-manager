@@ -23,7 +23,7 @@ export const osCommandHandler = async (input) => {
          console.log("EOL: ", JSON.stringify(EOL));
          break;
        case osCommandFlags.cpus:
-         console.table(cpus().map(cpu => cpu.model));
+         console.table(cpus().map(cpu => ({model: cpu.model, rate: `${cpu.speed / 1000} GHz`})));
          break;
        case osCommandFlags.homedir:
          console.log("Homedir: ", homedir());
