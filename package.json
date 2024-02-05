@@ -1,0 +1,11 @@
+{
+  "name": "rss_file_manager",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": "https://github.com/xhhjlt/nodejs-file-manager.git",
+  "author": "@a.schepkivsky <a.schepkivsky@iqdev.digital>",
+  "license": "MIT"
+}
