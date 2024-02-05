@@ -26,8 +26,11 @@ export const navCommandHandler = async (input, {navState}) => {
         showInvalidInputError();
         return;
       }
-      const files = await readdir(navState.currentDir, {withFileTypes: true});
-      console.table(files.map(file => ({ name: file.name, type: file.isDirectory() ? "directory" : file.isFile() ? "file" : "other" })));
+      const list = await readdir(navState.currentDir, {withFileTypes: true});
+      const directories = list.filter(file => file.isDirectory()).map(file => ({name: file.name, type: "directory"}));
+      const files = list.filter(file => file.isFile()).map(file => ({name: file.name, type: "file"}));
+      const others = list.filter(file => !file.isDirectory() && !file.isFile()).map(file => ({name: file.name, type: "other"}));
+      console.table([...directories, ...files, ...others]);
       break;
   }
 }
